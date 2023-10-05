@@ -33,18 +33,7 @@
 			<scope>test</scope>
 		</dependency>
 
-<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-databind</artifactId>
-    <version>2.12.5</version>
-    <exclusions>
-        <exclusion>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </exclusion>
-        <!-- Add more exclusions if needed -->
-    </exclusions>
-</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

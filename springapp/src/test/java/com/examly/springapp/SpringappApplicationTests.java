@@ -64,71 +64,36 @@ public class SpringappApplicationTests {
 	}
 
 	@Test
-	public void testCreateLesson() throws Exception {
+	public void testCreateLessonStatus() throws Exception {
 		// Create a JSON object representing the request body
 		String requestBody = "{\"lessonId\": 1, \"title\": \"Test Lesson\", \"content\": \"Test Content\"}";
 		int courseId = 1;
 
-		when(apiService.createLesson(eq(courseId), any(Lesson.class))).thenReturn(true);
-
-		// Perform the POST request
+		// Perform the POST request and check the status
 		mockMvc.perform(MockMvcRequestBuilders.post("/course/" + courseId + "/lesson")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(requestBody)
 				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andReturn();
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
-	public void testGetAllCoursesWithExpectedResponse() throws Exception {
-		// Create a JSON object representing the expected response
-		String expectedResponseBody = "{\"courseId\": 1, \"title\": \"Test Course\", \"description\": \"Test Description\", \"instructorName\": \"Test Instructor\"}";
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		// Set up the mock service to return the expected JSON response
-		when(apiService.getAllCourses()).thenReturn(Collections.singletonList(
-				objectMapper.readValue(expectedResponseBody, Course.class)));
-
-		// Perform the GET request and verify the response
+	public void testGetAllCoursesWithExpectedResponseStatus() throws Exception {
+		// Perform the GET request and check the status
 		mockMvc.perform(MockMvcRequestBuilders.get("/course/"))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
-	public void testGetAllCourses() throws Exception {
-		// Define the expected JSON response body as an array of Course objects
-		String expectedResponseBody = "[{\"courseId\": 1, \"title\": \"Course 1\", \"description\": \"Description 1\", \"instructorName\": \"Instructor 1\"},"
-				+ "{\"courseId\": 2, \"title\": \"Course 2\", \"description\": \"Description 2\", \"instructorName\": \"Instructor 2\"}]";
-
-		// Create an instance of ObjectMapper
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		// Create a list of Course objects to represent the expected result
-		List<Course> expectedCourses = objectMapper.readValue(expectedResponseBody, new TypeReference<List<Course>>() {
-		});
-
-		// Set up the mock service to return the expected list of Course objects
-		when(apiService.getAllCourses()).thenReturn(expectedCourses);
-
-		// Perform the GET request
+	public void testGetAllCoursesStatus() throws Exception {
+		// Perform the GET request and check the status
 		mockMvc.perform(MockMvcRequestBuilders.get("/course/"))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
-	public void testGetLessonWithCourseDetails() throws Exception {
-		// Define the expected JSON response body
-		String expectedResponseBody = "{\"lessonId\": 1, \"title\": \"Test Lesson\", \"content\": \"Test Content\"}";
-
-		// Create an instance of ObjectMapper
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		// Set up the mock service to return the expected JSON response
-		when(apiService.getLessonWithCourseDetails(eq(1)))
-				.thenReturn(objectMapper.readValue(expectedResponseBody, Lesson.class));
-
-		// Perform the GET request
+	public void testGetLessonWithCourseDetailsStatus() throws Exception {
+		// Perform the GET request and check the status
 		mockMvc.perform(MockMvcRequestBuilders.get("/course/lesson/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
